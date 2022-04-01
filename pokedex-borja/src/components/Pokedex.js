@@ -1,5 +1,6 @@
 import React from "react";
 import { getPokemons } from "../api";
+import Pokemon from "./Pokemon";
 
 const Pokedex = (props) => {
   const { pokemons } = props;
@@ -11,7 +12,7 @@ const Pokedex = (props) => {
       </div>
       <div className="pokedex-grid">
         {pokemons.map((pokemon, index) => {
-          return <div key={pokemon.name}>#{index+1}: {pokemon.name}</div>;
+          return <Pokemon pokemon={pokemon} key={pokemon.name} />;
         })}
       </div>
     </div>

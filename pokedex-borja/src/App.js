@@ -3,7 +3,7 @@ import Pokedex from "./components/Pokedex";
 import Searchbar from "./components/Searchbar";
 import "./styles.css";
 import React from "react";
-import { getPokemons } from "./api";
+import { getPokemons, getPokemonsData } from "./api";
 const { useState, useEffect } = React;
 
 export default function App() {
@@ -15,6 +15,11 @@ export default function App() {
     try{
       const data = await getPokemons();
       setPokemons(data.results);
+      const promises = data.results.map(async (pokemon) => {
+        return await getPokemonsData(pokemon.url);
+      })
+      const results = await Promise.all(promises);
+      setPokemons(results);
     }catch(err){
 
     }
